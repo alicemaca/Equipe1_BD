@@ -73,7 +73,7 @@ CREATE TABLE Gerencia (
     cpf_comissario INTEGER,
     CONSTRAINT Gerencia_pkey PRIMARY KEY (numero_de_voo, cpf_comissario),
     CONSTRAINT Gerencia_fkey1 FOREIGN KEY (numero_de_voo) REFERENCES Voo(numero_de_voo),
-    CONSTRAINT Gerencia_fkey2 FOREIGN KEY (cpf_comissario) REFERENCES Voo(numero_de_voo)
+    CONSTRAINT Gerencia_fkey2 FOREIGN KEY (cpf_comissario) REFERENCES Comissário(cpf_comissario)
 );
 
 CREATE TABLE Endereço(
@@ -109,7 +109,7 @@ START WITH 1;
 CREATE TABLE Informações_reserva ( 
     numero_da_reserva INTEGER DEFAULT seq_reserva.NEXTVAL, 
     n_da_poltrona INTEGER, 
-    forma_de_pagamento INTEGER, 
+    forma_de_pagamento VARCHAR2 (20), 
     embarcou NUMBER (1,0), 
     classe VARCHAR2 (15), 
     CONSTRAINT Informações_reserva_pkey PRIMARY KEY (numero_da_reserva),
@@ -360,6 +360,23 @@ VALUES (
     TO_TIMESTAMP('2025-10-26 22:23:00', 'YYYY-MM-DD HH24:MI:SS')
 );
 
+INSERT INTO Gerencia
+VALUES (1724, 42819365007);
+INSERT INTO Gerencia
+VALUES (1725, 51284097003);
+INSERT INTO Gerencia
+VALUES (3620, 61920783055);
+INSERT INTO Gerencia
+VALUES (2237, 74065129082);
+INSERT INTO Gerencia
+VALUES (9810, 82341057026);
+INSERT INTO Gerencia
+VALUES (2871, 93421864040);
+INSERT INTO Gerencia
+VALUES (0451, 93421864040);
+INSERT INTO Gerencia
+VALUES (3310, 74065129082);
+
 INSERT INTO Endereço
 VALUES (12345678, 'São Paulo', 'São Paulo', 'Vila Mariana', 'Rua das Flores');
 INSERT INTO Endereço
@@ -404,7 +421,6 @@ VALUES (43769528043, 78901234, 'Rafael Martins', 36, 190);
 INSERT INTO Passageiro
 VALUES (54870639022, 89012345, 'Camila Fernandes', 27, 305);
 
-
 INSERT INTO Telefone_passageiro
 VALUES (42819365017, 11987654321);
 INSERT INTO Telefone_passageiro
@@ -427,3 +443,66 @@ INSERT INTO Telefone_passageiro
 VALUES (43769528043, 11988776699);
 INSERT INTO Telefone_passageiro
 VALUES (54870639022, 21999887788);
+
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (8, 'crédito', 1, 'prioridade');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (70, 'débito', 0, 'econômica');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (20, 'dinheiro', 1, 'econômica');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (79, 'dinheiro', 1, 'prioridade');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (24, 'débito', 0, 'econômica');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (1, 'crédito', 1, 'prioridade');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (69, 'débito', 0, 'econômica');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (4, 'crédito',0, 'prioridade');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (10, 'crédito',1, 'prioridade');
+INSERT INTO Informações_Reserva (n_da_poltrona, forma_de_pagamento, embarcou, classe)
+VALUES (2, 'crédito',1, 'prioridade');
+
+INSERT INTO Reserva
+VALUES (1, 6567,42819365017);
+INSERT INTO Reserva
+VALUES (2, 5431,51284097003);
+INSERT INTO Reserva
+VALUES (3, 4539,61920783055);
+INSERT INTO Reserva
+VALUES (4, 4729, 74065129082);
+INSERT INTO Reserva
+VALUES (5, 7850,82341057026);
+INSERT INTO Reserva
+VALUES (6, 4752, 10439285099);
+INSERT INTO Reserva
+VALUES (7, 6166, 21547396071);
+INSERT INTO Reserva
+VALUES (8, 4203, 32658417058);
+INSERT INTO Reserva
+VALUES (9, 1203, 43769528043);
+INSERT INTO Reserva
+VALUES (10, 9223, 54870639022);
+
+INSERT INTO Bagagem
+VALUES (1, 1, 'Despachada', TO_TIMESTAMP('2025-10-23 08:15:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (1, 2, 'Despachada', TO_TIMESTAMP('2025-10-23 08:17:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (2, 1, 'Em trânsito', TO_TIMESTAMP('2025-10-23 06:40:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (3, 1, 'Entregue', TO_TIMESTAMP('2025-10-22 12:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (3, 2, 'Entregue', TO_TIMESTAMP('2025-10-22 12:32:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (4, 1, 'Extraviada', TO_TIMESTAMP('2025-10-23 14:05:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (5, 1, 'Despachada', TO_TIMESTAMP('2025-10-23 09:50:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (6, 1, 'Em trânsito', TO_TIMESTAMP('2025-10-23 07:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (6, 2, 'Em trânsito', TO_TIMESTAMP('2025-10-23 07:05:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO Bagagem
+VALUES (7, 1, 'Entregue', TO_TIMESTAMP('2025-10-25 01:07:00', 'YYYY-MM-DD HH24:MI:SS'));
