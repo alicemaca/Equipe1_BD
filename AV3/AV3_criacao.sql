@@ -1,12 +1,12 @@
 CREATE TABLE Funcionário (
-    cpf NUMBER (11, 0),
+    cpf VARCHAR2 (11),
     Nome VARCHAR2 (45),
     Idade INTEGER,
     CONSTRAINT Funcionário_pkey PRIMARY KEY (cpf)
 );
 
 CREATE TABLE Piloto ( 
-    cpf_piloto NUMBER (11, 0), 
+    cpf_piloto VARCHAR2 (11), 
     cadastro_aviação NUMBER (6, 0), 
     licença_piloto_linha_aérea INTEGER, 
     CONSTRAINT Piloto_pkey  PRIMARY KEY (cpf_piloto),
@@ -14,18 +14,19 @@ CREATE TABLE Piloto (
 );
 
 CREATE TABLE Copiloto (
-    cpf_copiloto NUMBER (11, 0),
+    cpf_copiloto VARCHAR2 (11),
     cadastro_aviação NUMBER (6, 0),
     CONSTRAINT Copiloto_pkey PRIMARY KEY (cpf_copiloto),
     CONSTRAINT Copiloto_fkey FOREIGN KEY (cpf_copiloto) REFERENCES FUNCIONÁRIO(cpf) 
 );
 
 CREATE TABLE Comissário (
-    cpf_comissario NUMBER (11, 0),
-    cpf_supervisor NUMBER (11, 0),
+    cpf_comissario VARCHAR2 (11),
+    cpf_supervisor VARCHAR2 (11),
     cht INTEGER,
     CONSTRAINT Comissário_pkey PRIMARY KEY (cpf_comissario),
-    CONSTRAINT Comissário_fkey FOREIGN KEY (cpf_comissario) REFERENCES FUNCIONÁRIO(cpf)
+    CONSTRAINT Comissário_fkey1 FOREIGN KEY (cpf_comissario) REFERENCES FUNCIONÁRIO(cpf),
+	CONSTRAINT Comissário_fkey2 FOREIGN KEY (cpf_supervisor) REFERENCES COMISSÁRIO(cpf_comissario)
 );
 
 CREATE TABLE Aeroporto (
@@ -56,12 +57,12 @@ CREATE TABLE Aeronave(
 );
 
 CREATE TABLE Voo (
-    numero_de_voo NUMBER (4, 0),
+    numero_de_voo VARCHAR2 (4),
     id_aeronave INTEGER,
     cod_iata_ida VARCHAR2 (3) NOT NULL,
     cod_iata_volta VARCHAR2 (3) NOT NULL,
-    cpf_piloto NUMBER (11, 0),
-    cpf_copiloto NUMBER (11, 0),
+    cpf_piloto VARCHAR2 (11),
+    cpf_copiloto VARCHAR2 (11),
     numero_de_passageiros_a_bordo INTEGER,
     status VARCHAR2 (20),
     previsao_de_ida TIMESTAMP,
@@ -77,15 +78,15 @@ CREATE TABLE Voo (
 );
 
 CREATE TABLE Gerencia (
-    numero_de_voo INTEGER,
-    cpf_comissario INTEGER,
+    numero_de_voo VARCHAR2 (4),
+    cpf_comissario VARCHAR2 (11),
     CONSTRAINT Gerencia_pkey PRIMARY KEY (numero_de_voo, cpf_comissario),
     CONSTRAINT Gerencia_fkey1 FOREIGN KEY (numero_de_voo) REFERENCES Voo(numero_de_voo),
     CONSTRAINT Gerencia_fkey2 FOREIGN KEY (cpf_comissario) REFERENCES Comissário(cpf_comissario)
 );
 
 CREATE TABLE Endereço(
-    cep_passageiro NUMBER (8, 0),
+    cep_passageiro VARCHAR2 (8),
     estado VARCHAR2 (30),
     cidade VARCHAR2 (30),
     bairro VARCHAR2 (30),
@@ -94,8 +95,8 @@ CREATE TABLE Endereço(
 );
 
 CREATE TABLE Passageiro(
-    cpf NUMBER (11, 0),
-    cep NUMBER (8, 0),
+    cpf VARCHAR2 (11),
+    cep VARCHAR2 (8),
     Nome VARCHAR2 (30),
     idade INTEGER,
     número INTEGER,
@@ -104,7 +105,7 @@ CREATE TABLE Passageiro(
 );
 
 CREATE TABLE Telefone_passageiro(
-	 cpf_passageiro NUMBER (11,0),
+	 cpf_passageiro VARCHAR2 (11),
 	 telefone_passageiro NUMBER (11,0),
 	 CONSTRAINT Telefone_passageiro_pkey PRIMARY KEY (cpf_passageiro, telefone_passageiro),
 	 CONSTRAINT Telefone_passageiro_fkey FOREIGN KEY (cpf_passageiro) REFERENCES Passageiro(cpf)
@@ -126,10 +127,12 @@ CREATE TABLE Informações_reserva (
 
 CREATE TABLE Reserva (
     numero_da_reserva INTEGER,
-    num_voo INTEGER,
-    cpf_passageiro NUMBER(11,0),
+    num_voo VARCHAR2 (4),
+    cpf_passageiro VARCHAR2 (11),
     CONSTRAINT Reserva_pkey PRIMARY KEY (numero_da_reserva),
-    CONSTRAINT Reserva_fkey FOREIGN KEY(numero_da_reserva) REFERENCES Informações_reserva(numero_da_reserva)
+    CONSTRAINT Reserva_fkey1 FOREIGN KEY(numero_da_reserva) REFERENCES Informações_reserva(numero_da_reserva),
+	CONSTRAINT Reserva_fkey2 FOREIGN KEY(num_voo) REFERENCES Voo(numero_de_voo),
+	CONSTRAINT Reserva_fkey3 FOREIGN KEY(cpf_passageiro) REFERENCES Passageiro(cpf)
 );
 
 CREATE TABLE Bagagem (
@@ -137,5 +140,6 @@ CREATE TABLE Bagagem (
     id_da_bagagem INTEGER,
     status VARCHAR2 (15),
     hora_despacho TIMESTAMP,
-    CONSTRAINT Bagagem_pkey PRIMARY KEY (numero_da_reserva, id_da_bagagem)
+    CONSTRAINT Bagagem_pkey PRIMARY KEY (numero_da_reserva, id_da_bagagem),
+	CONSTRAINT Bagagem_fkey FOREIGN KEY(numero_da_reserva) REFERENCES Reserva(numero_da_reserva)
 );
