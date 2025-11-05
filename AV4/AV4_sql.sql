@@ -117,3 +117,23 @@ AND R.CPF_PASSAGEIRO = P.CPF;
 SELECT f.Nome, f.cpf
 FROM Funcionário f
 WHERE f.cpf IN (SELECT c.cpf_supervisor FROM Comissário c);
+
+/*DELETE, SELECT FROM WHERE, LIKE, COUNT, INTERSECT, NOT IN*/
+DELETE FROM Modelo_Aeronave
+WHERE modelo_avião IN (
+    SELECT modelo_avião FROM Modelo_Aeronave
+    WHERE modelo_avião LIKE 'Boeing%'
+    AND modelo_avião NOT LIKE 'Boeing 737'
+    AND (
+        SELECT COUNT(*)
+        FROM Modelo_Aeronave
+        WHERE modelo_avião LIKE 'Boeing%'
+    ) > 1
+    
+    INTERSECT
+    
+    SELECT modelo_avião FROM Modelo_Aeronave
+    WHERE capacidade_de_voo > 3000 
+
+    AND modelo_avião NOT IN (SELECT A.modelo FROM AERONAVE A)
+);
