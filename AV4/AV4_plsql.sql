@@ -212,7 +212,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_gestao_passageiros AS
 END pkg_gestao_passageiros;
 /
 
-/*IF ELSE IF*/
+/*IF ELSIF*/
 DECLARE
   cpf_passageiro Passageiro.cpf%TYPE;
   cep_passageiro Passageiro.cep%TYPE;
