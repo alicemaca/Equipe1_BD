@@ -25,7 +25,7 @@ WHERE
 /*SELECT FROM WHERE, Operador relacional*/
 SELECT cpf, Nome, número 
 FROM Passageiro 
-WHERE cpf IN (SELECT cpf_passageiro FROM Reserva WHERE num_voo = 1203);
+WHERE cpf IN (SELECT cpf_passageiro FROM Reserva WHERE num_voo = '1203');
 
 /*AVG, SELECT FROM WHERE*/
 SELECT *
@@ -42,9 +42,9 @@ WHERE cpf IN (
 
 /*INSERT INTO*/ 
 INSERT INTO Funcionário
-VALUES (12045847801, 'Flora Silva Matos', 28);
+VALUES ('12045847801', 'Flora Silva Matos', 28);
 INSERT INTO Piloto
-VALUES (12045847801, 456875, 875941);
+VALUES ('12045847801', 456875, 875941);
 
 /*INTERSECT*/
 SELECT cpf FROM Funcionário
@@ -91,7 +91,7 @@ ON v.cpf_piloto = p.cpf_piloto;
 UPDATE Voo
 SET previsao_de_ida = previsao_de_ida + INTERVAL '15' MINUTE,
     previsao_de_chegada = previsao_de_chegada + INTERVAL '15' MINUTE
-WHERE numero_de_voo = 0451;
+WHERE numero_de_voo = '0451';
 
 /*MAX*/
 SELECT *
