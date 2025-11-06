@@ -151,4 +151,4 @@ WHERE modelo_avião IN (
     WHERE capacidade_de_voo > 3000 
 
     AND modelo_avião NOT IN (SELECT A.modelo FROM AERONAVE A)
-)
+);
