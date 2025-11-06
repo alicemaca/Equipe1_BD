@@ -169,7 +169,7 @@ WHEN NO_DATA_FOUND THEN
 END;
 /
 
-/*CREATE OR REPLACE PACKAGE, IN*/
+/*CREATE OR REPLACE PACKAGE*/
 CREATE OR REPLACE PACKAGE pkg_gestao_passageiros AS
   PROCEDURE registrar_novo_passageiro (
       p_cpf         IN Passageiro.cpf%TYPE,
