@@ -125,6 +125,7 @@ Values('REC',54778900000114 , 'Guararapes');
 INSERT INTO Modelo_Aeronave VALUES ('Airbus A320-200', 150, 23858, 6150);
 INSERT INTO Modelo_Aeronave VALUES ('Boeing 737-800', 162, 26020, 5436);
 INSERT INTO Modelo_Aeronave VALUES ('Embraer E195-E2', 120, 13200, 4815);
+INSERT INTO Modelo_Aeronave VALUES ('Boeing 777-200', 102, 19220, 3438);
 INSERT INTO Modelo_Aeronave VALUES ('ATR 72-600', 70, 5000, 1528);
 INSERT INTO Modelo_Aeronave VALUES ('Cessna 172 Skyhawk', 4, 212, 100);
 INSERT INTO Modelo_Aeronave VALUES ('Bombardier Q400', 70, 5700, 2500);
