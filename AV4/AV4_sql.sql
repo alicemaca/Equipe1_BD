@@ -1,14 +1,4 @@
-/*IS NOT NULL*/
-SELECT
-	numero_de_voo,
-	cod_iata_ida,
-	cod_iata_volta,
-	id_aeronave,
-	hora_de_ida
-FROM
-	Voo
-WHERE cod_iata_ida IN ('GRU', 'CGH', 'GIG')
-AND hora_de_ida IS NOT NULL;/*IS NOT NULL*/
+/*IS NOT NULL, IN*/
 SELECT
 	numero_de_voo,
 	cod_iata_ida,
@@ -32,12 +22,12 @@ Voo
 WHERE
 (hora_de_ida - previsao_de_ida) BETWEEN INTERVAL '5' MINUTE AND INTERVAL '15' MINUTE;
 
-/*SELECT FROM WHERE, Operador relacional*/
+/*SELECT FROM WHERE, Subconsulta com IN*/
 SELECT cpf, Nome, número 
 FROM Passageiro 
 WHERE cpf IN (SELECT cpf_passageiro FROM Reserva WHERE num_voo = 1203);
 
-/*AVG, SELECT FROM WHERE*/
+/*AVG, SELECT FROM WHERE, Subconsulta com operador relacional*/
 SELECT *
 FROM Voo
 WHERE numero_de_passageiros_a_bordo > (SELECT AVG(numero_de_passageiros_a_bordo) FROM Voo);
