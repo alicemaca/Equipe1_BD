@@ -1,7 +1,7 @@
 /*RECORD, %ROWTYPE*/
 DECLARE 
     TYPE piloto_info IS RECORD (
-        cpf NUMBER(11),
+        cpf VARCHAR2(11),
         nome VARCHAR2(45),
         cadastro NUMBER(6)
     );
@@ -11,7 +11,7 @@ BEGIN
    
     SELECT * INTO v_funcionario
     FROM Funcionário
-    WHERE cpf = 12345678901;
+    WHERE cpf = '12345678901';
 
     SELECT cpf_piloto, v_funcionario.Nome, cadastro_aviação
     INTO v_piloto_info
@@ -44,7 +44,7 @@ EXCEPTION
 END;
 /
 
-SELECT get_pilot_name(1724) AS piloto
+SELECT get_pilot_name('1724') AS piloto
 FROM dual;
 
 /*CASE WHEN*/
@@ -217,10 +217,10 @@ DECLARE
   cpf_passageiro Passageiro.cpf%TYPE;
   cep_passageiro Passageiro.cep%TYPE;
 BEGIN
-  cpf_passageiro := 42819365017;
+  cpf_passageiro := '42819365017';
   SELECT cep INTO cep_passageiro FROM PASSAGEIRO WHERE cpf = cpf_passageiro;
 
-  IF cep_passageiro IN (50070001, 50010010) THEN
+  IF cep_passageiro IN ('50070001', '50010010') THEN
     DBMS_OUTPUT.PUT_LINE('Está em um CEP especial');
   ELSIF cep_passageiro IS NOT NULL THEN
     DBMS_OUTPUT.PUT_LINE('Não se aplica');
