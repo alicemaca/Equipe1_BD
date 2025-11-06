@@ -32,7 +32,7 @@ SELECT *
 FROM Voo
 WHERE numero_de_passageiros_a_bordo > (SELECT AVG(numero_de_passageiros_a_bordo) FROM Voo);
 
-/*IN, SELECT FROM WHERE*/
+/*Subconsulta com IN, SELECT FROM WHERE*/
 SELECT nome, cpf
 FROM Passageiro
 WHERE cpf IN (
